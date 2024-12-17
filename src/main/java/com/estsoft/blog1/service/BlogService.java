@@ -21,4 +21,13 @@ public class BlogService {
     public List<Article> findAll() {
         return blogRepository.findAll();
     }
+    // 삭제 로직 추가
+    public void delete(Long id) {
+        blogRepository.deleteById(id);
+    }
+
+    // blog 게시글 단건 상세조회
+    public Article findBy(Long id) {
+        return blogRepository.findById(id).orElse(new Article());
+    }
 }
