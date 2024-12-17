@@ -2,7 +2,9 @@ package com.estsoft.blog1.service;
 
 import com.estsoft.blog1.domain.Article;
 import com.estsoft.blog1.dto.AddArticleRequest;
+import com.estsoft.blog1.dto.UpdateArticleRequest;
 import com.estsoft.blog1.repository.BlogRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +31,14 @@ public class BlogService {
     // blog 게시글 단건 상세조회
     public Article findBy(Long id) {
         return blogRepository.findById(id).orElse(new Article());
+    }
+
+    @Transactional
+    public Article update(Long id, UpdateArticleRequest request) {
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found " + id));
+
+        article.update(request.getTitle(), request.getContent());
+        return article;
     }
 }

@@ -1,5 +1,6 @@
 package com.estsoft.blog1.domain;
 
+import com.estsoft.blog1.dto.ArticleResponse;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,15 @@ public class Article {
 
     @Builder
     public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public ArticleResponse convert() {
+        return new ArticleResponse(id, title, content);
+    }
+
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }

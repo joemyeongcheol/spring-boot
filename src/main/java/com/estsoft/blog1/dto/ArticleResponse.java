@@ -11,6 +11,9 @@ public class ArticleResponse {
         this.content = article.getContent();
     }
 
+    public ArticleResponse(Long id, String title, String content) {
+    }
+
     public String getTitle() {
         return title;
     }

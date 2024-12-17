@@ -3,13 +3,11 @@ package com.estsoft.blog1.controller;
 import com.estsoft.blog1.domain.Article;
 import com.estsoft.blog1.dto.AddArticleRequest;
 import com.estsoft.blog1.dto.ArticleResponse;
+import com.estsoft.blog1.dto.UpdateArticleRequest;
 import com.estsoft.blog1.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +33,25 @@ public class BlogController {
                 .toList();
         return ResponseEntity.status(HttpStatus.OK)
                 .body(list);
+    }
+
+    // 단건 조회 API (Request mapping) 만들기
+    @GetMapping("api/articles/{id}")
+    public ResponseEntity<ArticleResponse> findById(@PathVariable Long id) {
+        Article article = blogService.findBy(id);
+        return ResponseEntity.ok(article.convert());
+    }
+
+    // DELETE /article/{id}
+    @DeleteMapping("api/articles/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        blogService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = blogService.update(id, request);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(updatedArticle);
     }
 }
