@@ -2,10 +2,16 @@ package com.estsoft.blog1.dto;
 
 import com.estsoft.blog1.domain.Article;
 
+import java.time.LocalDateTime;
+
 public class ArticleViewResponse {
     private Long id;
     private String title;
     private String content;
+    private LocalDateTime createdAt;
+
+    public ArticleViewResponse() {
+    }
 
     public Long getId() {
         return id;
@@ -19,9 +25,14 @@ public class ArticleViewResponse {
         return content;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
         this.content = article.getContent();
+        this.createdAt = article.getCreatedAt();
     }
 }
