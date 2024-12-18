@@ -36,14 +36,14 @@ public class BlogController {
     }
 
     // 단건 조회 API (Request mapping) 만들기
-    @GetMapping("api/articles/{id}")
+    @GetMapping("/api/articles/{id}")
     public ResponseEntity<ArticleResponse> findById(@PathVariable Long id) {
         Article article = blogService.findBy(id);
         return ResponseEntity.ok(article.convert());
     }
 
     // DELETE /article/{id}
-    @DeleteMapping("api/articles/{id}")
+    @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         blogService.delete(id);
         return ResponseEntity.ok().build();
